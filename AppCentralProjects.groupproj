@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{2B350EBF-115A-4063-8ADF-CF5019721132}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="demo\AppCentralHostDemo.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="demo\AppCentralClientDLLDemo.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="AppCentralHostDemo">
+        <MSBuild Projects="demo\AppCentralHostDemo.dproj"/>
+    </Target>
+    <Target Name="AppCentralHostDemo:Clean">
+        <MSBuild Projects="demo\AppCentralHostDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AppCentralHostDemo:Make">
+        <MSBuild Projects="demo\AppCentralHostDemo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="AppCentralClientDLLDemo">
+        <MSBuild Projects="demo\AppCentralClientDLLDemo.dproj"/>
+    </Target>
+    <Target Name="AppCentralClientDLLDemo:Clean">
+        <MSBuild Projects="demo\AppCentralClientDLLDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="AppCentralClientDLLDemo:Make">
+        <MSBuild Projects="demo\AppCentralClientDLLDemo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="AppCentralHostDemo;AppCentralClientDLLDemo"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="AppCentralHostDemo:Clean;AppCentralClientDLLDemo:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="AppCentralHostDemo:Make;AppCentralClientDLLDemo:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
