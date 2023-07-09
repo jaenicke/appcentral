@@ -1,5 +1,5 @@
-How to use
-==========
+How to use (C#)
+===============
 You create a class library and add the [NuGet package DllExport](https://www.nuget.org/packages/DllExport/). A dialog is shown (which you can get again later by calling DllExport.bat from the project's root directory). There you have to choose between x86 and x64, the other options did not work for me.
 Then it is important to check both "Use our IL Assembler. Try to fix 0x13 / 0x11 opcodes." and "Rebase System.Object: System.Runtime > mscorlib".
 After that you check the "Installed" checkbox and hit "Apply".
@@ -23,6 +23,15 @@ In Delphi it is sufficient to add the AppCentral unit, but in C# an additional s
 There you can also register an interface for use out of the host application:
 ```
             AppCentral.Reg<IClientDemoInterface>(new DemoInterface());
+```
+
+After that you should be able to consume interfaces from the host application inside the library as well as the other way round.
+
+How to use (Delphi)
+===================
+You simply add the AppCentral unit to your project and load the library to be used:
+```
+    TAppCentral.LoadPlugin('plugin.dll');
 ```
 
 After that you should be able to consume interfaces from the host application inside the library as well as the other way round.
