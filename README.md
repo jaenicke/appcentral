@@ -4,6 +4,9 @@ AppCentral implements communication between DLL libraries and host applications 
 
 This project is my fourth implementation of this idea. First I implemented it for myself, then for two companies, and now I have written it again from scratch to publish it. So far this is the best implementation.
 
+You find a short usage info here:
+[how-to short info](HOWTO.md)
+
 Supported versions of Delphi / C#
 ---------------------------------
 This project was written using Delphi 11 Community Edition and Visual Studio 2022 Community Edition. At the moment x86 only and .NET 4.8 is used.
@@ -52,7 +55,7 @@ if (AppCentral.TryGet<IAppDialogs>(out IAppDialogs Dialogs))
 
 Plans for the future
 --------------------
-I would like to support more .NET versions and I would like to support C# as a host application. So I plan to implement the full functionality in C# as well.
+I would like to <strike>support more .NET versions and I would like to</strike> (done) support C# as a host application. So I plan to implement the full functionality in C# as well.
 
 Other languages are on the list as well.
 
@@ -67,7 +70,7 @@ the merging if neccessary.
 
 Contact
 -------
-You can contact me as user jaenicke at http://www.delphipraxis.net/ or under:
+You can contact me as user jaenicke at https://en.delphipraxis.net/ or by mail:
 jaenicke.github@outlook.com
 
 Feel free to write, if you have any comments, feedback or the like.
