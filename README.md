@@ -9,7 +9,7 @@ You find a short usage info here:
 
 Supported versions of Delphi / C#
 ---------------------------------
-This project was written using Delphi 11 Community Edition and Visual Studio 2022 Community Edition. At the moment x86 only and .NET 4.8 is used.
+This project was written using Delphi 11 Community Edition and Visual Studio 2022 Community Edition. I used x86 only and .NET 4.8 for the demo, but meanwhile I tested other .NET versions as well. Be sure to have a look into the how-to file, because there are a few possible pitfalls.
 
 Example
 -------
