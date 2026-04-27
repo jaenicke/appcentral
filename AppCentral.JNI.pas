@@ -1,5 +1,5 @@
 (*
- * Copyright (c) 2026 Sebastian JÃ¤nicke (github.com/jaenicke)
+ * Copyright (c) 2026 Sebastian Jänicke (github.com/jaenicke)
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -281,30 +281,37 @@ var
 begin
   if TExceptionCheckProc(GetFn(JNI_ExceptionCheck))(FEnv) = 0 then Exit;
 
+  // Capture the throwable BEFORE describing/clearing - ExceptionClear
+  // resets the pending exception, but ExceptionOccurred returns a live
+  // local ref to it that we still own afterwards.
+  Throwable := TExceptionOccurredProc(GetFn(JNI_ExceptionOccurred))(FEnv);
   TExceptionDescribeProc(GetFn(JNI_ExceptionDescribe))(FEnv);
   TExceptionClearProc(GetFn(JNI_ExceptionClear))(FEnv);
 
   Msg := '';
-  ThrowableClass := TFindClassProc(GetFn(JNI_FindClass))(FEnv, 'java/lang/Throwable');
-  if ThrowableClass <> nil then
+  if Throwable <> nil then
   begin
-    GetMessage := TGetMethodIDProc(GetFn(JNI_GetMethodID))(FEnv, ThrowableClass,
-      'toString', '()Ljava/lang/String;');
-    if GetMessage <> nil then
+    ThrowableClass := TFindClassProc(GetFn(JNI_FindClass))(FEnv, 'java/lang/Throwable');
+    if ThrowableClass <> nil then
     begin
-      JMsg := jstring(TCallObjectMethodAProc(GetFn(JNI_CallObjectMethodA))
-        (FEnv, Throwable, GetMessage, nil));
-      // Suppress exception during toString
-      TExceptionClearProc(GetFn(JNI_ExceptionClear))(FEnv);
-      if JMsg <> nil then
+      GetMessage := TGetMethodIDProc(GetFn(JNI_GetMethodID))(FEnv, ThrowableClass,
+        'toString', '()Ljava/lang/String;');
+      if GetMessage <> nil then
       begin
-        Msg := JStringToWide(JMsg);
-        DeleteLocalRef(JMsg);
+        JMsg := jstring(TCallObjectMethodAProc(GetFn(JNI_CallObjectMethodA))
+          (FEnv, Throwable, GetMessage, nil));
+        // Suppress exception during toString
+        TExceptionClearProc(GetFn(JNI_ExceptionClear))(FEnv);
+        if JMsg <> nil then
+        begin
+          Msg := JStringToWide(JMsg);
+          DeleteLocalRef(JMsg);
+        end;
       end;
+      DeleteLocalRef(ThrowableClass);
     end;
-    DeleteLocalRef(ThrowableClass);
+    DeleteLocalRef(Throwable);
   end;
-  DeleteLocalRef(Throwable);
 
   if Msg = '' then
     raise Exception.Create('Java exception (see stderr for stack trace)')
