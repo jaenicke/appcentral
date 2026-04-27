@@ -1,9 +1,10 @@
 @echo off
 REM Builds all components. Components without their toolchain get skipped.
 setlocal
-
-set BUILD=%~dp0
-
+set "BUILD=%~dp0"
+set "ROOT=%BUILD%.."
+set "OUTPUT=%ROOT%\Output"
+set "EXAMPLES=%ROOT%\Examples"
 echo ##############################################
 echo  Building all AppCentral components
 echo ##############################################
@@ -32,4 +33,4 @@ echo.
 echo ##############################################
 echo  Done
 echo ##############################################
-dir /b "C:\Beispiele\AppCentral\Output\*.exe" "C:\Beispiele\AppCentral\Output\*.dll"
+dir /b "%OUTPUT%\*.exe" "%OUTPUT%\*.dll"

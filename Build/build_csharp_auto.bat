@@ -1,7 +1,9 @@
 @echo off
 setlocal
-
-set OUTPUT=C:\Beispiele\AppCentral\Output
+set "BUILD=%~dp0"
+set "ROOT=%BUILD%.."
+set "OUTPUT=%ROOT%\Output"
+set "EXAMPLES=%ROOT%\Examples"
 if not exist "%OUTPUT%" mkdir "%OUTPUT%"
 
 where dotnet >NUL 2>&1
@@ -18,7 +20,7 @@ if errorlevel 1 (
 )
 
 echo === Kompiliere C# DLL Auto (deklarativ via [GeneratedComClass]) ===
-dotnet publish "C:\Beispiele\AppCentral\Examples\CSharpDLLAuto\ExampleCSharpDLLAuto.csproj" ^
+dotnet publish "%EXAMPLES%\CSharpDLLAuto\ExampleCSharpDLLAuto.csproj" ^
     -c Release -r win-x64 ^
     -o "%OUTPUT%\_csautodll_publish"
 if errorlevel 1 exit /b 1

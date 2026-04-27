@@ -1,7 +1,9 @@
 @echo off
 setlocal
-
-set OUTPUT=C:\Beispiele\AppCentral\Output
+set "BUILD=%~dp0"
+set "ROOT=%BUILD%.."
+set "OUTPUT=%ROOT%\Output"
+set "EXAMPLES=%ROOT%\Examples"
 if not exist "%OUTPUT%" mkdir "%OUTPUT%"
 
 REM Clean up the old central AppCentralLibrary.dll if it's lingering from
@@ -9,7 +11,7 @@ REM previous builds - the per-host AppCentralLib.dll has replaced it.
 del /q "%OUTPUT%\AppCentralLibrary.dll" 2>NUL
 
 echo === Building VB.NET host ===
-dotnet publish "C:\Beispiele\AppCentral\Examples\VBNetHost\VBNetHost.vbproj" ^
+dotnet publish "%EXAMPLES%\VBNetHost\VBNetHost.vbproj" ^
     -c Release -r win-x64 --self-contained false ^
     -o "%OUTPUT%\_vbhost_publish"
 if errorlevel 1 exit /b 1
@@ -22,7 +24,7 @@ rmdir /S /Q "%OUTPUT%\_vbhost_publish"
 
 echo.
 echo === Building F# host ===
-dotnet publish "C:\Beispiele\AppCentral\Examples\FSharpHost\FSharpHost.fsproj" ^
+dotnet publish "%EXAMPLES%\FSharpHost\FSharpHost.fsproj" ^
     -c Release -r win-x64 --self-contained false ^
     -o "%OUTPUT%\_fshost_publish"
 if errorlevel 1 exit /b 1

@@ -1,7 +1,9 @@
 @echo off
 setlocal
-
-set OUTPUT=C:\Beispiele\AppCentral\Output
+set "BUILD=%~dp0"
+set "ROOT=%BUILD%.."
+set "OUTPUT=%ROOT%\Output"
+set "EXAMPLES=%ROOT%\Examples"
 if not exist "%OUTPUT%" mkdir "%OUTPUT%"
 
 REM On Lazarus 4.0 for Win64 only i386-win32 is shipped by default.
@@ -26,14 +28,14 @@ REM   05071 - Private type ... never used (inside generics.collections)
 set "VM=-vm6058 -vm4046 -vm5024 -vm5071"
 
 echo === Building FreePascal DLL (%FPC_ARCH%) ===
-cd /d C:\Beispiele\AppCentral\Examples\FreePascalDLL
+cd /d %EXAMPLES%\FreePascalDLL
 "%FPC%" -O2 -B %VM% -FE"%OUTPUT%" -FU. -Fu..\.. -Fu.. ExampleFPCDLL.lpr
 if errorlevel 1 exit /b 1
 del /q *.o *.ppu *.lib 2>NUL
 
 echo.
 echo === Building FreePascal Host (%FPC_ARCH%) ===
-cd /d C:\Beispiele\AppCentral\Examples\FreePascalHost
+cd /d %EXAMPLES%\FreePascalHost
 "%FPC%" -O2 -B %VM% -FE"%OUTPUT%" -FU. -Fu..\.. -Fu.. FPCHost.lpr
 if errorlevel 1 exit /b 1
 del /q *.o *.ppu 2>NUL

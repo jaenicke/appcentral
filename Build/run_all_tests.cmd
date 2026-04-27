@@ -1,10 +1,11 @@
 @echo off
 setlocal
+set "BUILD=%~dp0"
+set "ROOT=%BUILD%.."
+set "OUTPUT=%ROOT%\Output"
+set "EXAMPLES=%ROOT%\Examples"
 set "JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-25.0.2.10-hotspot"
 set "PATH=%JAVA_HOME%\bin\server;%JAVA_HOME%\bin;%PATH%"
-
-set OUTPUT=C:\Beispiele\AppCentral\Output
-
 REM Alle DLLs zum Testen (nicht alle muessen vorhanden sein)
 set DLLS=ExampleCppDLL.dll ExampleDelphiDLL.dll ExampleJavaDLL.dll ExampleCSharpDLL.dll ExampleCSharpDLLAuto.dll ExampleRustDLL.dll ExampleFPCDLL.dll
 
@@ -64,7 +65,7 @@ for %%D in (%DLLS%) do (
     if exist "%OUTPUT%\%%D" (
         echo.
         echo --- Python Host + %%D ---
-        pushd C:\Beispiele\AppCentral\Examples\PythonHost
+        pushd %EXAMPLES%\PythonHost
         python -u main.py "%OUTPUT%\%%D"
         popd
     )
@@ -80,7 +81,7 @@ for %%D in (%DLLS%) do (
     if exist "%OUTPUT%\%%D" (
         echo.
         echo --- PowerShell Host + %%D ---
-        powershell -NoProfile -ExecutionPolicy Bypass -File C:\Beispiele\AppCentral\Examples\PowerShellHost\main.ps1 -DllPath "%OUTPUT%\%%D"
+        powershell -NoProfile -ExecutionPolicy Bypass -File %EXAMPLES%\PowerShellHost\main.ps1 -DllPath "%OUTPUT%\%%D"
     )
 )
 goto :eof

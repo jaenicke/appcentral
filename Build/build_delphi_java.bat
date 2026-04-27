@@ -1,7 +1,9 @@
 @echo off
 setlocal
-
-set OUTPUT=C:\Beispiele\AppCentral\Output
+set "BUILD=%~dp0"
+set "ROOT=%BUILD%.."
+set "OUTPUT=%ROOT%\Output"
+set "EXAMPLES=%ROOT%\Examples"
 if not exist "%OUTPUT%" mkdir "%OUTPUT%"
 
 set "DCC=C:\Program Files (x86)\Embarcadero\Studio\37.0\bin\dcc64.exe"
@@ -15,9 +17,9 @@ exit /b 1
 set "BDS=C:\Program Files (x86)\Embarcadero\Studio\37.0"
 
 REM Search paths: AppCentral.pas + AppCentral.JNI.pas at root, Interfaces.pas under Examples
-set "UNITS=%BDS%\lib\Win64\release;C:\Beispiele\AppCentral;C:\Beispiele\AppCentral\Examples"
+set "UNITS=%BDS%\lib\Win64\release;%ROOT%;%EXAMPLES%"
 
-cd /d C:\Beispiele\AppCentral\Examples
+cd /d %EXAMPLES%
 
 echo === Building DelphiJavaHost (Win64) ===
 "%DCC%" -B -Q ^

@@ -1,8 +1,10 @@
 @echo off
 setlocal
-
-set OUTPUT=C:\Beispiele\AppCentral\Output
-set SRCDIR=C:\Beispiele\AppCentral\Examples\JavaDLL
+set "BUILD=%~dp0"
+set "ROOT=%BUILD%.."
+set "OUTPUT=%ROOT%\Output"
+set "EXAMPLES=%ROOT%\Examples"
+set SRCDIR=%EXAMPLES%\JavaDLL
 if not exist "%OUTPUT%" mkdir "%OUTPUT%"
 
 if "%JAVA_HOME%"=="" set "JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-25.0.2.10-hotspot"

@@ -1,7 +1,9 @@
 @echo off
 setlocal
-
-set OUTPUT=C:\Beispiele\AppCentral\Output
+set "BUILD=%~dp0"
+set "ROOT=%BUILD%.."
+set "OUTPUT=%ROOT%\Output"
+set "EXAMPLES=%ROOT%\Examples"
 if not exist "%OUTPUT%" mkdir "%OUTPUT%"
 
 where dotnet >NUL 2>&1
@@ -19,7 +21,7 @@ if errorlevel 1 (
 )
 
 echo === Kompiliere C# DLL (NativeAOT, x64) ===
-dotnet publish "C:\Beispiele\AppCentral\Examples\CSharpDLL\ExampleCSharpDLL.csproj" ^
+dotnet publish "%EXAMPLES%\CSharpDLL\ExampleCSharpDLL.csproj" ^
     -c Release -r win-x64 ^
     -o "%OUTPUT%\_csdll_publish"
 if errorlevel 1 exit /b 1
@@ -30,7 +32,7 @@ rmdir /S /Q "%OUTPUT%\_csdll_publish"
 
 echo.
 echo === Kompiliere C# Host (x64) ===
-dotnet publish "C:\Beispiele\AppCentral\Examples\CSharpHost\CSharpHost.csproj" ^
+dotnet publish "%EXAMPLES%\CSharpHost\CSharpHost.csproj" ^
     -c Release -r win-x64 --self-contained false ^
     -o "%OUTPUT%\_cshost_publish"
 if errorlevel 1 exit /b 1
