@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Per-host companion project. F# cannot mix .cs source files into its own
+    fsproj compile, so this small C# project wraps AppCentral.cs (the
+    integration library) and Interfaces.cs (the sample interfaces) into
+    an assembly that the F# host can reference.
+
+    Why colocated with the host (not central): the .NET source generator
+    behind [GeneratedComInterface] places its marshalling stubs into the
+    assembly that defines the interface. Each sample wires AppCentral.cs +
+    its interfaces together itself, instead of going through one shared lib.
+  -->
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>AppCentralLib</RootNamespace>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AssemblyName>AppCentralLib</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\..\AppCentral.cs" Link="AppCentral.cs" />
+    <Compile Include="..\..\Interfaces.cs" Link="Interfaces.cs" />
+  </ItemGroup>
+
+</Project>

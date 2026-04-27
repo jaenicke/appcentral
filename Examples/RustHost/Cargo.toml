@@ -1,0 +1,17 @@
+[package]
+name = "RustHost"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "RustHost"
+path = "src/main.rs"
+
+[dependencies]
+appcentral = { path = "../../AppCentralRust" }
+windows = { version = "0.59", features = [
+    "Win32_Foundation",
+    "Win32_System_Com",
+    "Win32_System_Ole",
+] }
+windows-core = "0.59"

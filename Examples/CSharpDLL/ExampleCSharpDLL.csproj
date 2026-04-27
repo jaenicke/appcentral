@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PublishAot>true</PublishAot>
+    <IsAotCompatible>true</IsAotCompatible>
+    <RootNamespace>AppCentralLib</RootNamespace>
+    <!-- NativeAOT DLL (keine EXE) -->
+    <OutputType>Library</OutputType>
+    <NativeLib>Shared</NativeLib>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- AppCentral.cs als Link einbinden (nicht kopieren) -->
+    <Compile Include="..\..\AppCentral.cs" Link="AppCentral.cs" />
+  </ItemGroup>
+
+</Project>

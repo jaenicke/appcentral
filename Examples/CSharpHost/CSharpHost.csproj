@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RootNamespace>AppCentralLib</RootNamespace>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- AppCentral.cs als Link einbinden (nicht kopieren) -->
+    <Compile Include="..\..\AppCentral.cs" Link="AppCentral.cs" />
+    <!-- Interface-Definitionen aus der DLL teilen -->
+    <Compile Include="..\Interfaces.cs" Link="Interfaces.cs" />
+  </ItemGroup>
+
+</Project>
